@@ -1,3 +1,5 @@
+const validTypes = ['Plante', 'Poison', 'Feu', 'Eau', 'Insecte', 'Normal', 'Electrik', 'Fée', 'Vol']
+
 //LE NOM DU MODELE EST TJ AU SINGULIER ET CR2ERA LA TABLE AVEC 'S' A LA FIN
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define(
@@ -10,6 +12,9 @@ module.exports = (sequelize, DataTypes) => {
             name: {
                 type: DataTypes.STRING,
                 allowNull: false,
+                unique: {
+                    msg : 'Le nom est déja pris'
+                },
                 validate : {
                     notEmpty : { msg : 'La chaine de caractère ne peux pas rester vide pour le champs name'},
                     notNull: { msg : 'Le champ name est requis.'}
@@ -65,6 +70,21 @@ module.exports = (sequelize, DataTypes) => {
                 set(types) {
                     //API REST -> DB
                     this.setDataValue('types', types.join())
+                },
+                validate : {
+                    isTypesValid(value){
+                        if (!value) {
+                            throw new Error('Vous devez ajouter au moins un type')
+                        }
+                        if(value.split(',').length > 3){
+                            throw new Error('Vous ne pouvez pas ajouter plus de 3 erreurs')
+                        }
+                        value.split(',').forEach(type => {
+                            if(!validTypes.includes(type)) {
+                                throw new Error(`Le type doit appartenir à la liste suivante : ${validTypes}`)
+                            }
+                        })
+                    }
                 }
             }
         },
