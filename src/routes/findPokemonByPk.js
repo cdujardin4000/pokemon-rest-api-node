@@ -1,8 +1,10 @@
 const { Pokemon } = require('../db/sequelize')
+const auth = require('../auth/auth') //Midellware d'authentification
 
 module.exports = (app) => {
     app.get(
         '/api/pokemons/:id',
+        auth,
         (req, res) => {
             Pokemon.findByPk(req.params.id)
             .then(pokemon => {

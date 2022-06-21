@@ -12,7 +12,7 @@ const sequelize = new Sequelize(
         host: 'localhost',
         dialect: 'mariadb',
         dialectOptions: {
-            timezone: 'Etc/GMT+2',
+            timezone: 'Europe/Brussels',
         },
         logging: false
     }

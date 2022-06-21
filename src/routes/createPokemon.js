@@ -1,9 +1,11 @@
 const { Pokemon } = require('../db/sequelize')
 const {ValidationError, UniqueConstraintError} = require("sequelize");
+const auth = require('../auth/auth') //Midellware d'authentification
 
 module.exports = (app) => {
     app.post(
         '/api/pokemons',
+        auth,
         (req, res) => {
             Pokemon.create(req.body)
             .then(pokemon => {

@@ -1,6 +1,7 @@
 const { Pokemon } = require('../db/sequelize')
 const { Op } = require('sequelize') //Opérateurs de recherche
 const auth = require('../auth/auth') //Midellware d'authentification
+
 module.exports = (app) => {
     app.get(
         '/api/pokemons',
