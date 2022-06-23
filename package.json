@@ -8,7 +8,7 @@
     "npm": "8.12.2"
   },
   "scripts": {
-    "start": "NODE_ENV=production node app.js",
+    "start": "SET NODE_ENV=production & node app.js",
     "dev": "NODE_ENV=development nodemon app.js"
   },
   "author": "cdujardin4000",
